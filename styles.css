@@ -210,10 +210,14 @@ body{
   align-items: center;
 }
 .time-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
   font-family: var(--font-ui);
   font-size: clamp(10px, 1.2vh, 11.5px);
   color: rgba(243,230,200,.65);
-  margin-top: 10px;
+  margin-top: 8px;
   line-height: 1;
 }
 
@@ -411,41 +415,51 @@ body{
   .platform-btn span{ display:none; }
   .platform-btn{ padding:9px; }
   .platform-icon{ width:16px; height:16px; }
-  .player-card{ border-radius:20px; padding: 12px 14px; }
+  .player-card{ border-radius:20px; padding: 14px 16px; }
   .track-artist{ display:none; }
 
-  /* Hide volume buttons and volume bar on phone view */
-  .vol-btn, .vol-bar-wrap{ display: none !important; }
+  /* Hide volume, speed, shuffle, and repeat on phone view */
+  .vol-btn, .vol-bar-wrap, .speed-select, .sec-btn{ display: none !important; }
 
-  /* Adjust remaining 6 controls (speed, shuffle, prev, play, next, repeat) on phone */
-  .controls-row{
-    justify-content: space-between;
+  /* Center align right column & 3 main buttons (Prev, Play, Next) on phone */
+  .player-right{
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
+    width: 100%;
+  }
+  .track-info{
+    width: 100%;
+    text-align: center;
+  }
+  .controls-row{
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 6px auto 0 auto;
+    gap: 24px;
     width: 100%;
   }
   .play-btn{
-    width: 46px;
-    height: 46px;
-    font-size: 17px;
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+    margin: 0;
   }
   .ctrl-btn{
-    width: 34px;
-    height: 34px;
+    width: 44px;
+    height: 44px;
+    margin: 0;
   }
-  .sec-btn{
-    width: 32px;
-    height: 32px;
-  }
-  .speed-select{
-    display: inline-block !important;
-    padding: 4px 7px;
-    font-size: 11px;
+  .ctrl-btn svg{
+    width: 75%;
+    height: 75%;
   }
 }
 @media (max-width:420px){
-  .track-title{ font-size:12px; }
-  .controls-row{ gap: 2px; }
+  .track-title{ font-size:13px; text-align: center; }
+  .controls-row{ gap: 18px; }
 }
 @media (max-height:560px){
   .headline{ font-size:clamp(22px,5vh,42px); }
