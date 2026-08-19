@@ -12,9 +12,8 @@
 </head>
 <body>
 
-  <!-- background art direction: landscape image on wide screens, portrait crop on narrow -->
   <picture class="bg-picture">
-    <source media="(max-width: 720px)" srcset="village-portrait.jpg">
+    <source media="(max-width: 720px)" srcset="immg.png">
     <img src="immg.png" alt="" class="bg-image" id="bgImage">
   </picture>
   <div class="bg-scrim"></div>
@@ -22,13 +21,12 @@
 
   <div class="page">
 
-    <!-- ===== Top bar ===== -->
+    <!-- Top bar -->
     <header class="topbar">
       <div class="wordmark">
         <span class="wordmark-hi">गाँव की यादें</span>
         <span class="wordmark-en">village radio</span>
       </div>
-
       <nav class="platform-links" aria-label="Playlist par sunein">
         <a id="spotifyLink" href="#" target="_blank" rel="noopener" class="platform-btn">
           <svg viewBox="0 0 24 24" class="platform-icon" aria-hidden="true"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.6 14.4c-.2.3-.6.4-.9.2-2.5-1.5-5.6-1.9-9.3-1-.4.1-.7-.1-.8-.5-.1-.4.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.3.2.4.6.2.9zm1.2-2.8c-.2.4-.7.5-1.1.3-2.9-1.8-7.3-2.3-10.7-1.3-.4.1-.9-.1-1-.6-.1-.4.1-.9.6-1 3.9-1.2 8.7-.6 12 1.4.4.2.5.8.2 1.2zm.1-2.9C14.6 8.6 9.3 8.4 6.2 9.4c-.5.2-1.1-.1-1.3-.6-.2-.5.1-1.1.6-1.3 3.6-1.1 9.4-.9 13.1 1.3.5.3.6.9.4 1.4-.3.4-.9.6-1.4.3z"/></svg>
@@ -41,18 +39,18 @@
       </nav>
     </header>
 
-    <!-- ===== Hero copy ===== -->
+    <!-- Hero -->
     <main class="hero">
       <p class="eyebrow">दोपहर की धूप, बरगद की छाँव</p>
       <h1 class="headline">गाँव की <span class="headline-accent">यादें</span></h1>
       <p class="subline">वो 90's वाले गाने, जो आज भी दिल में बसे हैं</p>
     </main>
 
-    <!-- ===== Player ===== -->
+    <!-- Player -->
     <section class="player" aria-label="Music player">
-
       <div class="player-card">
 
+        <!-- Cover art -->
         <div class="cover-wrap">
           <img id="coverArt" class="cover-art" src="" alt="">
           <div class="lantern" id="lantern" aria-hidden="true">
@@ -68,47 +66,89 @@
           </div>
         </div>
 
-        <div class="track-info">
-          <h2 class="track-title" id="trackTitle">—</h2>
-          <p class="track-artist" id="trackArtist">—</p>
+        <!-- Right side -->
+        <div class="player-right">
 
-          <div class="progress-row">
-            <input type="range" id="seekBar" class="seek-bar" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+          <!-- Track info -->
+          <div class="track-info">
+            <h2 class="track-title" id="trackTitle">—</h2>
+            <p class="track-artist" id="trackArtist">—</p>
+            <div class="progress-row">
+              <input type="range" id="seekBar" class="seek-bar" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+            </div>
+            <p class="time-row"><span id="currentTime">0:00</span> / <span id="durationTime">0:00</span></p>
           </div>
-          <p class="time-row"><span id="currentTime">0:00</span> / <span id="durationTime">0:00</span></p>
-        </div>
 
-        <div class="controls-row">
-          <button class="ctrl-btn" id="prevBtn" aria-label="Pichla gaana">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19 20L9 12L19 4V20Z" fill="currentColor"/>
-              <rect x="5" y="4" width="2.5" height="16" rx="1.25" fill="currentColor"/>
-            </svg>
-          </button>
+          <!-- All controls in ONE row:
+               [Shuffle][Speed] [Prev][Play][Next] [Repeat][Vol-][Vol+]  -->
+          <div class="controls-row">
 
-          <button class="play-btn" id="playBtn" aria-label="Play">
-            <!-- Play icon -->
-            <svg viewBox="0 0 24 24" id="playIcon" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
-              <path d="M9.5 7.5L17 12L9.5 16.5V7.5Z" fill="currentColor"/>
-            </svg>
-            <!-- Pause icon -->
-            <svg viewBox="0 0 24 24" id="pauseIcon" hidden fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
-              <rect x="8" y="7" width="2.8" height="10" rx="1.4" fill="currentColor"/>
-              <rect x="13.2" y="7" width="2.8" height="10" rx="1.4" fill="currentColor"/>
-            </svg>
-          </button>
+            <!-- LEFT: Speed + Shuffle -->
+            <select id="speedSelect" class="speed-select" aria-label="Playback speed" title="Speed">
+              <option value="0.75">0.75×</option>
+              <option value="1" selected>1×</option>
+              <option value="1.25">1.25×</option>
+              <option value="1.5">1.5×</option>
+            </select>
 
-          <button class="ctrl-btn" id="nextBtn" aria-label="Agla gaana">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5 4L15 12L5 20V4Z" fill="currentColor"/>
-              <rect x="16.5" y="4" width="2.5" height="16" rx="1.25" fill="currentColor"/>
-            </svg>
-          </button>
-        </div>
+            <button class="sec-btn" id="shuffleBtn" aria-label="Shuffle" title="Shuffle">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M16 3h5v5M4 20l16-16M16 21h5v-5M4 4l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
 
-      </div>
+            <!-- CENTER: Prev | Play/Pause | Next -->
+            <button class="ctrl-btn" id="prevBtn" aria-label="Pichla gaana">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M19 20L9 12L19 4V20Z" fill="currentColor"/>
+                <rect x="5" y="4" width="2.5" height="16" rx="1.25" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <button class="play-btn" id="playBtn" aria-label="Play">
+              <span id="playIcon">▶</span>
+              <span id="pauseIcon" hidden>❚❚</span>
+            </button>
+
+            <button class="ctrl-btn" id="nextBtn" aria-label="Agla gaana">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 4L15 12L5 20V4Z" fill="currentColor"/>
+                <rect x="16.5" y="4" width="2.5" height="16" rx="1.25" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <!-- RIGHT: Repeat + Vol- + Vol+ -->
+            <button class="sec-btn" id="repeatBtn" aria-label="Repeat" title="Repeat">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M17 2l4 4-4 4M3 11V9a4 4 0 014-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 01-4 4H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="repeat-badge" id="repeatBadge" hidden>1</span>
+            </button>
+
+            <button class="vol-btn" id="volDown" aria-label="Volume kam karo" title="Volume −">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor"/>
+                <line x1="15" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+
+            <div class="vol-bar-wrap" title="Volume">
+              <div class="vol-bar-fill" id="volFill" style="width: 85%;"></div>
+            </div>
+
+            <button class="vol-btn" id="volUp" aria-label="Volume badhao" title="Volume +">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor"/>
+                <line x1="15" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="12" y1="12" x2="18" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+
+          </div><!-- end .controls-row -->
+
+        </div><!-- end .player-right -->
+
+      </div><!-- end .player-card -->
     </section>
 
     <footer class="site-footer">
@@ -117,8 +157,8 @@
 
   </div>
 
-  <!-- Hidden YouTube IFrame Player -->
-  <div id="ytPlayerWrap" style="position:fixed;bottom:-9999px;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+  <!-- Hidden YouTube IFrame -->
+  <div style="position:fixed;bottom:-9999px;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
     <div id="ytPlayer"></div>
   </div>
 
