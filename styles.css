@@ -1,0 +1,403 @@
+/* =========================================================
+   गाँव की यादें — tokens
+   ========================================================= */
+:root{
+  --cream:        #f3e6c8;
+  --gold:         #d9a441;
+  --gold-soft:    rgba(217,164,65,0.18);
+  --terracotta:   #b6532f;
+  --olive:        #6f7a45;
+  --brown-deep:   #241708;
+  --brown-mid:    #3a2416;
+  --ink:          #180f06;
+
+  --font-display: 'Rozha One', serif;
+  --font-body:    'Mukta', sans-serif;
+  --font-ui:      'Poppins', sans-serif;
+
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+}
+
+*{ box-sizing: border-box; }
+html,body{
+  height: 100%;
+  overflow: hidden; /* no scrolling / no sliding — everything fits one screen */
+}
+
+body{
+  margin:0;
+  font-family: var(--font-body);
+  color: var(--cream);
+  background: var(--ink);
+  height: 100vh;
+  height: 100dvh;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+/* =========================================================
+   Background art direction
+   ========================================================= */
+.bg-picture{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.bg-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: saturate(1.05);
+}
+.bg-scrim{
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(24,15,6,0.55) 0%, rgba(24,15,6,0.15) 30%, rgba(24,15,6,0.35) 60%, rgba(24,15,6,0.92) 100%);
+}
+.grain{
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* =========================================================
+   Layout shell
+   ========================================================= */
+.page{
+  position: relative;
+  z-index: 3;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(14px, 2.5vh, 24px) clamp(18px, 4vw, 56px) clamp(14px, 2.5vh, 28px);
+  overflow: hidden;
+}
+
+/* =========================================================
+   Top bar
+   ========================================================= */
+.topbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.wordmark{ display:flex; flex-direction: column; line-height: 1.1; }
+.wordmark-hi{
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.2vw, 22px);
+  color: var(--cream);
+  letter-spacing: 0.5px;
+}
+.wordmark-en{
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 4px;
+}
+
+.platform-links{ display:flex; gap: 10px; }
+.platform-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(243,230,200,0.08);
+  border: 1px solid rgba(243,230,200,0.22);
+  color: var(--cream);
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 500;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.platform-btn:hover{
+  background: var(--gold-soft);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+.platform-btn:focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+.platform-icon{ width: 15px; height: 15px; flex-shrink: 0; }
+
+/* =========================================================
+   Hero copy
+   ========================================================= */
+.hero{
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: clamp(10px, 2vh, 30px) 12px;
+}
+.eyebrow{
+  font-family: var(--font-ui);
+  font-size: clamp(10px, 1.4vh, 12px);
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin: 0 0 clamp(4px, 1vh, 10px);
+  opacity: 0.9;
+}
+.headline{
+  font-family: var(--font-display);
+  font-size: clamp(30px, 7vh, 84px);
+  margin: 0;
+  color: var(--cream);
+  text-shadow: 0 6px 30px rgba(0,0,0,0.45);
+  line-height: 1.05;
+}
+.headline-accent{ color: var(--gold); }
+.subline{
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(12px, 1.8vh, 17px);
+  color: rgba(243,230,200,0.85);
+  margin: clamp(8px, 1.5vh, 14px) 0 0;
+  max-width: 480px;
+}
+
+/* =========================================================
+   Player card — the signature piece
+   ========================================================= */
+.player{
+  display: flex;
+  justify-content: center;
+}
+
+.player-card{
+  width: 100%;
+  max-width: 620px;
+  background: linear-gradient(100deg, rgba(58, 30, 14, 0.78), rgba(24, 15, 6, 0.62));
+  border: 1px solid rgba(217,164,65,0.28);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 999px;
+  padding: clamp(8px, 1.4vh, 14px) clamp(14px, 2vw, 22px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 18px);
+}
+
+.cover-wrap{
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(48px, 7vh, 68px);
+  height: clamp(48px, 7vh, 68px);
+}
+.cover-art{
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  object-fit: cover;
+  background: var(--brown-mid);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* the lantern — signature motif, echoes the lantern in the artwork.
+   glows warm when a track is playing. */
+.lantern{
+  position: absolute;
+  right: -10px;
+  top: -26px;
+  width: 22px;
+  height: 32px;
+  transform-origin: top center;
+  opacity: 0.9;
+}
+.lantern-svg{ width: 100%; height: 100%; overflow: visible; }
+.lantern-flame{
+  transition: opacity 0.4s ease, filter 0.4s ease;
+  opacity: 0.35;
+  filter: drop-shadow(0 0 0px var(--gold));
+}
+.lantern-glass{ transition: opacity 0.4s ease; opacity: 0.5; }
+
+.player-card.is-playing .lantern{
+  animation: lanternSway 2.6s ease-in-out infinite;
+}
+.player-card.is-playing .lantern-flame{
+  opacity: 1;
+  filter: drop-shadow(0 0 7px var(--gold)) drop-shadow(0 0 14px rgba(217,164,65,0.7));
+  animation: flicker 1.8s ease-in-out infinite;
+}
+.player-card.is-playing .lantern-glass{ opacity: 0.95; }
+
+@keyframes lanternSway{
+  0%, 100%{ transform: rotate(-3deg); }
+  50%{ transform: rotate(3deg); }
+}
+@keyframes flicker{
+  0%, 100%{ opacity: 1; }
+  45%{ opacity: 0.85; }
+  50%{ opacity: 1; }
+  78%{ opacity: 0.9; }
+}
+
+.track-info{ min-width: 0; flex: 1; }
+.track-title{
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(13px, 1.9vh, 18px);
+  margin: 0;
+  color: var(--cream);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.track-artist{
+  font-family: var(--font-ui);
+  font-size: clamp(10px, 1.4vh, 12.5px);
+  color: rgba(243,230,200,0.65);
+  margin: 2px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* progress — thin line inline under the title, like a compact pill player */
+.progress-row{
+  margin-top: clamp(4px, 1vh, 8px);
+}
+.time-row{
+  font-family: var(--font-ui);
+  font-size: clamp(9px, 1.2vh, 11px);
+  color: rgba(243,230,200,0.55);
+  margin: 3px 0 0;
+  line-height: 1;
+}
+.track-artist + .progress-row{ margin-top: clamp(5px, 1vh, 9px); }
+.seek-bar{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--gold) var(--progress, 0%), rgba(243,230,200,0.2) 0);
+  outline: none;
+  cursor: pointer;
+  display: block;
+}
+.seek-bar::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--cream);
+  cursor: pointer;
+  margin-top: -4px;
+}
+.seek-bar::-moz-range-thumb{
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--cream);
+  cursor: pointer;
+  border: none;
+}
+.seek-bar::-moz-range-track{
+  height: 3px; border-radius: 3px;
+  background: rgba(243,230,200,0.2);
+}
+.seek-bar:focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* controls */
+.controls-row{
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1.4vw, 12px);
+  flex-shrink: 0;
+}
+.ctrl-btn{
+  background: none;
+  border: none;
+  color: rgba(243,230,200,0.85);
+  width: clamp(26px, 4vh, 34px); height: clamp(26px, 4vh, 34px);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.ctrl-btn svg{ width: 62%; height: 62%; }
+.ctrl-btn:hover{ background: rgba(243,230,200,0.1); color: var(--cream); }
+.ctrl-btn:focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.play-btn{
+  width: clamp(38px, 6vh, 50px); height: clamp(38px, 6vh, 50px);
+  border-radius: 50%;
+  background: var(--gold);
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+  flex-shrink: 0;
+  box-shadow: 0 6px 20px rgba(217,164,65,0.4);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.play-btn svg{ width: 44%; height: 44%; }
+.play-btn:hover{ transform: scale(1.06); }
+.play-btn:active{ transform: scale(0.96); }
+.play-btn:focus-visible{ outline: 2px solid var(--cream); outline-offset: 3px; }
+
+/* footer */
+.site-footer{
+  text-align: center;
+  margin-top: clamp(8px, 1.6vh, 20px);
+  flex-shrink: 0;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: rgba(243,230,200,0.4);
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 720px){
+  .platform-btn span{ display: none; }
+  .platform-btn{ padding: 9px; }
+  .platform-icon{ width: 16px; height: 16px; }
+  .player-card{ border-radius: 40px; }
+  .track-artist{ display: none; }
+}
+
+@media (max-width: 380px){
+  .controls-row{ gap: 4px; }
+  .track-title{ font-size: 12px; }
+}
+
+/* short screens (landscape phones, small laptops) — shrink further so
+   nothing ever needs to scroll */
+@media (max-height: 560px){
+  .eyebrow{ display: none; }
+  .subline{ display: none; }
+  .headline{ font-size: clamp(24px, 6vh, 48px); }
+  .hero{ padding: 4px 12px; }
+}
+@media (max-height: 420px){
+  .headline{ display: none; }
+  .wordmark-en{ display: none; }
+}
